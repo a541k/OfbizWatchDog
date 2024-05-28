@@ -28,7 +28,6 @@ public class OfbizController {
 
 
     public void startOfbiz() throws IOException, InterruptedException {
-        if (!isOfbizRunning()) {
             System.out.println("Trying to start OFBiz");
             String userHome = System.getProperty("user.home");
             String ofbizDir = userHome + OFBIZ_PLUGIN_DIR;
@@ -37,15 +36,13 @@ public class OfbizController {
                     "--",
                     "bash",
                     "-c",
-                    String.format("cd '%s' && ./gradlew ofbiz; exec bash", ofbizDir)
+                    String.format("cd '%s' && ./gradlew ofbiz;", ofbizDir)
             };
 
             Process process = Runtime.getRuntime().exec(command);
             process.waitFor();
             System.out.println("Started OFBiz in a new terminal");
-        } else {
-            System.out.println("OFBiz is already running.");
-        }
+
     }
 
 
@@ -58,7 +55,7 @@ public class OfbizController {
                 "--",
                 "bash",
                 "-c",
-                String.format("cd '%s' && ./gradlew --stop; exec bash", ofbizDir)
+                String.format("cd '%s' && ./gradlew --stop;", ofbizDir)
         };
 
         Process process = Runtime.getRuntime().exec(command);
